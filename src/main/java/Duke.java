@@ -61,23 +61,4 @@ public class Duke {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    public static class Task {
-        String description;
-        boolean isDone;
-        // to create the task
-        public Task(String description) {
-            this.description = description;
-            this.isDone = false;
-        }
-
-        public String getStatusIcon() {
-            return (isDone ? "\u2713" : "\u2718"); //return tick or X symbols
-        }
-
-        public void MarkAsDone() {
-            this.isDone = true;
-        }
-
-
-    }
 }
