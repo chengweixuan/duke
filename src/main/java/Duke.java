@@ -32,7 +32,6 @@ public class Duke {
             System.out.println("____________________");
             // beginning of logic
             if (input.equals("list")) { // for the command listing
-
                 for (Task task : list) {
                     if (task != null) {
                         System.out.println(print + ". " + task.toPrint());
@@ -40,13 +39,15 @@ public class Duke {
                     }
                 }
                 print = 1;
-            } else if ((splitStr[0].equals("done"))) {
+
+            } else if ((splitStr[0].equals("done"))) { // for done command
                 System.out.println("Nice! I've marked this task as done:");
                 String number = splitStr[1];
                 int index = Integer.parseInt(number);
                 list[index - 1].MarkAsDone();
                 System.out.println(list[index - 1].toPrint());
-            } else if ( splitStr[0].equals("deadline") ) {
+
+            } else if ( splitStr[0].equals("deadline") ) { // for deadline command
                 System.out.println("Got it. I've added this task:");
                 String[] newSplit = splitStr[1].split("/by", 2);
                 String description = newSplit[0];
@@ -54,6 +55,24 @@ public class Duke {
                 list[counter] = new Deadline(description, by);
                 System.out.println(list[counter].toPrint());
                 counter++;
+                System.out.println("Now you have " + counter + " tasks in your list.");
+
+            } else if ( splitStr[0].equals("todo")) { // for-tido command
+                System.out.println("Got it. I've added this task:");
+                list[counter] = new ToDos(splitStr[1]);
+                System.out.println(list[counter].toPrint());
+                counter++;
+                System.out.println("Now you have " + counter + " tasks in your list.");
+
+            } else if ( splitStr[0].equals("event")) { // for event command
+                System.out.println("Got it. I've added this task:");
+                String[] newSplit = splitStr[1].split("/at", 2);
+                String description = newSplit[0];
+                String at = newSplit[1];
+                list[counter] = new Event(description, at);
+                System.out.println(list[counter].toPrint());
+                counter++;
+                System.out.println("Now you have " + counter + " tasks in your list.");
 
             } else {
                 list[counter] = new Task(input);

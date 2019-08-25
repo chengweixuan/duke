@@ -18,4 +18,6 @@ class Task {
     public String toPrint() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
+
+
 }
