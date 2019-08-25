@@ -23,39 +23,45 @@ public class Duke {
         while (true) {
             Scanner myObj = new Scanner(System.in);
             input = myObj.nextLine();
-            String[] splitStr = input.split(" ");
+            String[] splitStr = input.split(" ", 2);
             // take the value from this input always
 
-            if (input.equals("bye")) {
+            if (input.equals("bye")) { // exit condition
                 break;
             }
-
+            System.out.println("____________________");
+            // beginning of logic
             if (input.equals("list")) { // for the command listing
-                System.out.println("____________________");
 
                 for (Task task : list) {
                     if (task != null) {
-                        System.out.println(print + ". [" + task.getStatusIcon() + "] " + task.description);
+                        System.out.println(print + ". " + task.toPrint());
                         print++;
                     }
                 }
-                System.out.println("____________________");
                 print = 1;
             } else if ((splitStr[0].equals("done"))) {
-                System.out.println("____________________");
                 System.out.println("Nice! I've marked this task as done:");
                 String number = splitStr[1];
                 int index = Integer.parseInt(number);
                 list[index - 1].MarkAsDone();
-                System.out.println("[" + list[index - 1].getStatusIcon() + "] " + list[index - 1].description);
-                System.out.println("____________________");
+                System.out.println(list[index - 1].toPrint());
+            } else if ( splitStr[0].equals("deadline") ) {
+                System.out.println("Got it. I've added this task:");
+                String[] newSplit = splitStr[1].split("/by", 2);
+                String description = newSplit[0];
+                String by = newSplit[1];
+                list[counter] = new Deadline(description, by);
+                System.out.println(list[counter].toPrint());
+                counter++;
+
             } else {
                 list[counter] = new Task(input);
                 counter++;
-                System.out.println("____________________");
                 System.out.println("added: " + input);
-                System.out.println("____________________");
             }
+
+            System.out.println("____________________");
         }
 
         System.out.println("Bye. Hope to see you again soon!");

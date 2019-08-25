@@ -2,7 +2,7 @@ class Task {
     String description;
     private boolean isDone;
     // to create the task
-    Task(String description) {
+    public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
@@ -13,5 +13,9 @@ class Task {
 
     void MarkAsDone() {
         this.isDone = true;
+    }
+
+    public String toPrint() {
+        return "[" + this.getStatusIcon() + "] " + this.description;
     }
 }
