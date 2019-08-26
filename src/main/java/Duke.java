@@ -41,48 +41,86 @@ public class Duke {
                 print = 1;
 
             } else if ((splitStr[0].equals("done"))) { // for done command
-                System.out.println("Nice! I've marked this task as done:");
                 String number = splitStr[1];
                 int index = Integer.parseInt(number);
+                try {
+                    list[index-1].MarkAsDone();
+                } catch (NullPointerException e) {
+                    System.out.println("Task " + index + " not in the list!");
+                    System.out.println("____________________");
+                    continue;
+                }
+                System.out.println("Nice! I've marked this task as done:");
                 list[index - 1].MarkAsDone();
                 System.out.println(list[index - 1].toPrint());
 
             } else if ( splitStr[0].equals("deadline") ) { // for deadline command
-                System.out.println("Got it. I've added this task:");
-                String[] newSplit = splitStr[1].split("/by", 2);
+                String[] newSplit = null;
+                try {
+                    newSplit = splitStr[1].split("/by", 2);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
+                    System.out.println("____________________");
+                    continue;
+                }
                 String description = newSplit[0];
-                String by = newSplit[1];
+                String by = null;
+                try {
+                    by = newSplit[1];
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("☹ OOPS!!! Please include a deadline.");
+                    System.out.println("____________________");
+                    continue;
+                }
                 list[counter] = new Deadline(description, by);
+                System.out.println("Got it. I've added this task:");
                 System.out.println(list[counter].toPrint());
                 counter++;
                 System.out.println("Now you have " + counter + " tasks in your list.");
 
             } else if ( splitStr[0].equals("todo")) { // for-tido command
+                try {
+                    list[counter] = new ToDos(splitStr[1]);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+                    System.out.println("____________________");
+                    continue;
+                }
                 System.out.println("Got it. I've added this task:");
-                list[counter] = new ToDos(splitStr[1]);
                 System.out.println(list[counter].toPrint());
                 counter++;
                 System.out.println("Now you have " + counter + " tasks in your list.");
 
             } else if ( splitStr[0].equals("event")) { // for event command
-                System.out.println("Got it. I've added this task:");
-                String[] newSplit = splitStr[1].split("/at", 2);
+                String[] newSplit = null;
+                try {
+                    newSplit = splitStr[1].split("/at", 2);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+                    System.out.println("____________________");
+                    continue;
+                }
                 String description = newSplit[0];
-                String at = newSplit[1];
+                String at = null;
+                try {
+                    at = newSplit[1];
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("☹ OOPS!!! Please include an event time.");
+                    System.out.println("____________________");
+                    continue;
+                }
+                System.out.println("Got it. I've added this task:");
                 list[counter] = new Event(description, at);
                 System.out.println(list[counter].toPrint());
                 counter++;
                 System.out.println("Now you have " + counter + " tasks in your list.");
 
             } else {
-                list[counter] = new Task(input);
-                counter++;
-                System.out.println("added: " + input);
+                System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
 
             System.out.println("____________________");
         }
-
         System.out.println("Bye. Hope to see you again soon!");
     }
 
