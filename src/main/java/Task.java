@@ -1,5 +1,5 @@
-class Task {
-    String description;
+public class Task {
+    private String description;
     private boolean isDone;
     // to create the task
     public Task(String description) {

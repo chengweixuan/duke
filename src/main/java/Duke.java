@@ -1,8 +1,11 @@
+import java.io.IOException;
 import java.util.Scanner;
+import java.io.*;
+import java.io.FileWriter;
 
 public class Duke {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -12,13 +15,15 @@ public class Duke {
 
         System.out.println("Hello! I'm Duke\n" + "What can I do for you?");
 
-        String[] words = new String[100];
         int counter = 0;
         String input = "";
         int print = 1;
 
         Task[] list = new Task[100];
 
+        Reader ReadWrite = new Reader();
+
+        ReadWrite.read(list, counter);
 
         while (true) {
             Scanner myObj = new Scanner(System.in);
@@ -77,6 +82,7 @@ public class Duke {
                 System.out.println(list[counter].toPrint());
                 counter++;
                 System.out.println("Now you have " + counter + " tasks in your list.");
+                Reader.addText( "D", description, by);
 
             } else if ( splitStr[0].equals("todo")) { // for-tido command
                 try {
@@ -90,6 +96,7 @@ public class Duke {
                 System.out.println(list[counter].toPrint());
                 counter++;
                 System.out.println("Now you have " + counter + " tasks in your list.");
+                Reader.addText( "T", splitStr[1], "");
 
             } else if ( splitStr[0].equals("event")) { // for event command
                 String[] newSplit = null;
@@ -114,6 +121,7 @@ public class Duke {
                 System.out.println(list[counter].toPrint());
                 counter++;
                 System.out.println("Now you have " + counter + " tasks in your list.");
+                Reader.addText( "E", description, at);
 
             } else {
                 System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
@@ -122,6 +130,7 @@ public class Duke {
             System.out.println("____________________");
         }
         System.out.println("Bye. Hope to see you again soon!");
+
     }
 
 }
