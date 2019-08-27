@@ -1,9 +1,8 @@
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
-import java.io.*;
-import java.io.FileWriter;
 
 public class Duke {
 
@@ -80,8 +79,14 @@ public class Duke {
                     System.out.println("____________________");
                     continue;
                 }
-                LocalDateTime newBy = Reader.getTIme(by);
-//                LocalDateTime newBy = LocalDateTime.parse(by, formatter);
+                LocalDateTime newBy;
+                try {
+                    newBy = Reader.getTIme(by);
+                } catch (DateTimeParseException e) {
+                    System.out.println("☹ OOPS!!! Please enter the time as d/MM/yyy HHmm");
+                    System.out.println("____________________");
+                    continue;
+                }
                 list[counter] = new Deadline(description, newBy);
                 System.out.println("Got it. I've added this task:");
                 System.out.println(list[counter].toPrint());

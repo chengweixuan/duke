@@ -53,7 +53,6 @@ public class Reader {
 
     public static LocalDateTime getTIme(String time) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(" d/MM/yyyy HHmm");
-        LocalDateTime formattedTime = LocalDateTime.parse(time, formatter);
-        return formattedTime;
+        return LocalDateTime.parse(time, formatter);
     }
 }
