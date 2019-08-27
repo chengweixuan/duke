@@ -1,6 +1,8 @@
 import java.io.*;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 
 public class Reader {
@@ -21,7 +23,8 @@ public class Reader {
                 String[] furtherSplit = spliced[1].split("/time", 2);
                 String input = furtherSplit[0];
                 String time = furtherSplit[1];
-                list[counter] = new Deadline(input, time);
+                LocalDateTime newTime = getTIme(time);
+                list[counter] = new Deadline(input, newTime);
                 counter++;
                 // do deadline command
 
@@ -46,5 +49,11 @@ public class Reader {
 
         fw.write(type + "/next" + input + "/time" + time + "\n");
         fw.close();
+    }
+
+    public static LocalDateTime getTIme(String time) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(" d/MM/yyyy HHmm");
+        LocalDateTime formattedTime = LocalDateTime.parse(time, formatter);
+        return formattedTime;
     }
 }
