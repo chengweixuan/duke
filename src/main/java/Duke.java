@@ -16,17 +16,20 @@ public class Duke {
 
         System.out.println("Hello! I'm Duke\n" + "What can I do for you?");
 
-        int counter = 0;
         String input = "";
         int print = 1;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(" d/MM/yyy HHmm");
 
         Task[] list = new Task[100];
-
+       // System.out.println(counter);
         Reader ReadWrite = new Reader();
-
+        int counter = 0;
         ReadWrite.read(list, counter);
-
+        for (Task task : list) {
+            if (task != null) {
+                counter++;
+            }
+        }
         while (true) {
             Scanner myObj = new Scanner(System.in);
             input = myObj.nextLine();
