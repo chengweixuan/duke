@@ -58,8 +58,9 @@ public class Duke {
                     continue;
                 }
                 System.out.println("Nice! I've marked this task as done:");
-                list[index - 1].MarkAsDone();
+                //list[index - 1].MarkAsDone();
                 System.out.println(list[index - 1].toPrint());
+                Reader.updateTask(index);
 
             } else if ( splitStr[0].equals("deadline") ) { // for deadline command
                 String[] newSplit = null;
@@ -90,9 +91,9 @@ public class Duke {
                 list[counter] = new Deadline(description, newBy);
                 System.out.println("Got it. I've added this task:");
                 System.out.println(list[counter].toPrint());
+                Reader.addText( "D", description, by, counter, list);
                 counter++;
                 System.out.println("Now you have " + counter + " tasks in your list.");
-                Reader.addText( "D", description, by);
 
             } else if ( splitStr[0].equals("todo")) { // for-tido command
                 try {
@@ -104,9 +105,9 @@ public class Duke {
                 }
                 System.out.println("Got it. I've added this task:");
                 System.out.println(list[counter].toPrint());
+                Reader.addText( "T", splitStr[1], "", counter, list);
                 counter++;
                 System.out.println("Now you have " + counter + " tasks in your list.");
-                Reader.addText( "T", splitStr[1], "");
 
             } else if ( splitStr[0].equals("event")) { // for event command
                 String[] newSplit = null;
@@ -129,9 +130,9 @@ public class Duke {
                 System.out.println("Got it. I've added this task:");
                 list[counter] = new Event(description, at);
                 System.out.println(list[counter].toPrint());
+                Reader.addText( "E", description, at, counter, list);
                 counter++;
                 System.out.println("Now you have " + counter + " tasks in your list.");
-                Reader.addText( "E", description, at);
 
             } else {
                 System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");

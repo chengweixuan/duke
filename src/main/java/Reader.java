@@ -16,25 +16,42 @@ public class Reader {
             String[] spliced = line.split("/next", 2);
             if (spliced[0].equals("T")) {
                 // do basic command
-                String[] furtherSplit = spliced[1].split("/time", 2);
+                String[] moreSplit = spliced[1].split("/state", 2);
+                String[] furtherSplit = moreSplit[1].split("/time", 2);
                 list[counter] = new ToDos(furtherSplit[0]);
+                if (moreSplit[0].equals("1")) {
+                    list[counter].MarkAsDone();
+                }
                 counter++;
             } else if (spliced[0].equals("D")) {
-                String[] furtherSplit = spliced[1].split("/time", 2);
+                String[] moreSplit = spliced[1].split("/state", 2);
+                String[] furtherSplit = moreSplit[1].split("/time", 2);
                 String input = furtherSplit[0];
                 String time = furtherSplit[1];
                 LocalDateTime newTime = getTIme(time);
                 list[counter] = new Deadline(input, newTime);
+                if (moreSplit[0].equals("1")) {
+                    list[counter].MarkAsDone();
+                }
                 counter++;
                 // do deadline command
 
             } else if (spliced[0].equals("E")) {
-                String[] furtherSplit = spliced[1].split("/time", 2);
+                String[] moreSplit = spliced[1].split("/state", 2);
+                String[] furtherSplit = moreSplit[1].split("/time", 2);
                 String input = furtherSplit[0];
                 String time = furtherSplit[1];
                 // do event command
                 list[counter] = new Event(input, time);
+                if (moreSplit[0].equals("1")) {
+                    list[counter].MarkAsDone();
+                }
+                //list[counter].MarkAsDone();
                 counter++;
+            } else if (spliced[0].equals("U")) {
+                String number = spliced[1];
+                int index = Integer.parseInt(number);
+                list[index - 1].MarkAsDone();
             }
 
         }
@@ -43,11 +60,23 @@ public class Reader {
         fw.close();
     }
 
-    public static void addText(String type, String input, String time) throws IOException {
+    public static void addText(String type, String input, String time, int counter, Task[] list) throws IOException {
         BufferedWriter fw = new BufferedWriter(
                 new FileWriter("/Users/chengweixuanmacbook/Desktop/School/CS2113/saved.txt", true));
+        String done;
+        if (list[counter].getStatusIcon().equals("\u2713")) {
+            done = "1";
+        } else {
+            done = "0";
+        }
+        fw.write(type + "/next" + done + "/state" + input + "/time" + time + "\n");
+        fw.close();
+    }
 
-        fw.write(type + "/next" + input + "/time" + time + "\n");
+    public static void updateTask(int index) throws IOException {
+        BufferedWriter fw = new BufferedWriter(
+                new FileWriter("/Users/chengweixuanmacbook/Desktop/School/CS2113/saved.txt", true));
+        fw.write("U/next" + index + "\n");
         fw.close();
     }
 
