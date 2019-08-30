@@ -1,8 +1,10 @@
+import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Duke {
 
@@ -18,10 +20,10 @@ public class Duke {
 
         String input = "";
         int print = 1;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(" d/MM/yyy HHmm");
 
         Task[] list = new Task[100];
-       // System.out.println(counter);
+
+        List<Task> tasks = new ArrayList<>();
         Reader ReadWrite = new Reader();
         int counter = 0;
         ReadWrite.read(list, counter);
@@ -37,6 +39,9 @@ public class Duke {
             // take the value from this input always
 
             if (input.equals("bye")) { // exit condition
+                FileWriter fw = new FileWriter("/Users/chengweixuanmacbook/Desktop/School/CS2113/saved.txt");
+                fw.write("");
+                fw.close();
                 break;
             }
             System.out.println("____________________");
