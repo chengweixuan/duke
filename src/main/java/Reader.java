@@ -40,6 +40,11 @@ public class Reader {
                 String number = spliced[1];
                 int index = Integer.parseInt(number);
                 tasks.get(index - 1).MarkAsDone();
+
+            } else if (spliced[0].equals("C")) {
+                String number = spliced[1];
+                int index = Integer.parseInt(number);
+                tasks.remove(index-1);
             }
 
         }
@@ -57,6 +62,13 @@ public class Reader {
         BufferedWriter fw = new BufferedWriter(
                 new FileWriter("/Users/chengweixuanmacbook/Desktop/School/CS2113/saved.txt", true));
         fw.write("U/next" + index + "\n");
+        fw.close();
+    }
+
+    public static void deleteTask(int index) throws IOException {
+        BufferedWriter fw = new BufferedWriter(
+                new FileWriter("/Users/chengweixuanmacbook/Desktop/School/CS2113/saved.txt", true));
+        fw.write("C/next" + index + "\n");
         fw.close();
     }
 

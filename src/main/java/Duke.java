@@ -53,7 +53,6 @@ public class Duke {
                 String number = splitStr[1];
                 int index = Integer.parseInt(number);
                 try {
-                    //list[index-1].MarkAsDone();
                     tasks.get(index - 1).MarkAsDone();
                 } catch (NullPointerException e) {
                     System.out.println("Task " + index + " not in the list!");
@@ -133,9 +132,27 @@ public class Duke {
                 System.out.println("Got it. I've added this task:");
                 tasks.add(new Event(description, at));
                 System.out.println(tasks.get(counter).toPrint());
-                Reader.addText( "E", description, at, counter, tasks);
+                Reader.addText("E", description, at, counter, tasks);
                 counter++;
                 System.out.println("Now you have " + counter + " tasks in your list.");
+
+            } else if ( splitStr[0].equals("delete")) {
+                String number = splitStr[1];
+                int index = Integer.parseInt(number);
+                Task temp = null;
+                try {
+                    temp = tasks.get(index-1);
+                } catch (NullPointerException e) {
+                    System.out.println("Task " + index + " not in the list!");
+                    System.out.println("____________________");
+                    continue;
+                }
+                tasks.remove(index - 1);
+                counter--;
+                System.out.println("Noted. I've removed this task:");
+                System.out.println(temp.toPrint());
+                System.out.println("Now you have " + counter + " tasks in the list.");
+                Reader.deleteTask(index);
 
             } else {
                 System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
