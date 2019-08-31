@@ -28,7 +28,7 @@ public class Duke {
         counter = tasks.size();
 
         while (true) {
-            Scanner myObj = new Scanner(System.in); // yo
+            Scanner myObj = new Scanner(System.in);
             input = myObj.nextLine();
             String[] splitStr = input.split(" ", 2);
             // take the value from this input always
@@ -53,6 +53,7 @@ public class Duke {
                 String number = splitStr[1];
                 int index = Integer.parseInt(number);
                 try {
+                    //list[index-1].MarkAsDone();
                     tasks.get(index - 1).MarkAsDone();
                 } catch (NullPointerException e) {
                     System.out.println("Task " + index + " not in the list!");
@@ -153,6 +154,17 @@ public class Duke {
                 System.out.println(temp.toPrint());
                 System.out.println("Now you have " + counter + " tasks in the list.");
                 Reader.deleteTask(index);
+
+            } else if (splitStr[0].equals("find")) {
+                System.out.println("Here are the matching tasks in your list:");
+                String query = splitStr[1];
+                for (Task task: tasks) {
+                    if (task.getString().contains(query)) {
+                        System.out.println(print + ". " + task.toPrint());
+                    }
+                    print++;
+                }
+                print = 1;
 
             } else {
                 System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
