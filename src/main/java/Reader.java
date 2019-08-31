@@ -3,10 +3,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 
 public class Reader {
-    public void read(Task[] list, int counter) throws IOException{
+    public void read(List<Task> tasks, int counter) throws IOException{
         FileReader fr = new FileReader("/Users/chengweixuanmacbook/Desktop/School/CS2113/saved.txt");
         BufferedReader br = new BufferedReader(fr);
 
@@ -17,14 +18,14 @@ public class Reader {
             if (spliced[0].equals("T")) {
                 // do basic command
                 String[] furtherSplit = spliced[1].split("/time", 2);
-                list[counter] = new ToDos(furtherSplit[0]);
+                tasks.add(new ToDos(furtherSplit[0]));
                 counter++;
             } else if (spliced[0].equals("D")) {
                 String[] furtherSplit = spliced[1].split("/time", 2);
                 String input = furtherSplit[0];
                 String time = furtherSplit[1];
                 LocalDateTime newTime = getTIme(time);
-                list[counter] = new Deadline(input, newTime);
+                tasks.add(new Deadline(input, newTime));
                 counter++;
                 // do deadline command
 
@@ -32,28 +33,22 @@ public class Reader {
                 String[] furtherSplit = spliced[1].split("/time", 2);
                 String input = furtherSplit[0];
                 String time = furtherSplit[1];
-                // do event command
-                list[counter] = new Event(input, time);
-                //list[counter].MarkAsDone();
+                tasks.add(new Event(input, time));
                 counter++;
+
             } else if (spliced[0].equals("U")) {
                 String number = spliced[1];
                 int index = Integer.parseInt(number);
-                list[index - 1].MarkAsDone();
+                tasks.get(index - 1).MarkAsDone();
             }
 
         }
     }
 
-    public static void addText(String type, String input, String time, int counter, Task[] list) throws IOException {
+    public static void addText(String type, String input, String time, int counter, List<Task> list) throws IOException {
         BufferedWriter fw = new BufferedWriter(
                 new FileWriter("/Users/chengweixuanmacbook/Desktop/School/CS2113/saved.txt", true));
-        String done;
-        if (list[counter].getStatusIcon().equals("\u2713")) {
-            done = "1";
-        } else {
-            done = "0";
-        }
+
         fw.write(type + "/next"  + input + "/time" + time + "\n");
         fw.close();
     }

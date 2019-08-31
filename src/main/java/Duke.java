@@ -21,17 +21,12 @@ public class Duke {
         String input = "";
         int print = 1;
 
-        Task[] list = new Task[100];
-
         List<Task> tasks = new ArrayList<>();
         Reader ReadWrite = new Reader();
         int counter = 0;
-        ReadWrite.read(list, counter);
-        for (Task task : list) {
-            if (task != null) {
-                counter++;
-            }
-        }
+        ReadWrite.read(tasks, counter);
+        counter = tasks.size();
+
         while (true) {
             Scanner myObj = new Scanner(System.in);
             input = myObj.nextLine();
@@ -47,11 +42,10 @@ public class Duke {
             System.out.println("____________________");
             // beginning of logic
             if (input.equals("list")) { // for the command listing
-                for (Task task : list) {
-                    if (task != null) {
-                        System.out.println(print + ". " + task.toPrint());
-                        print++;
-                    }
+
+                for (Task task: tasks) {
+                    System.out.println(print + ". " + task.toPrint());
+                    print++;
                 }
                 print = 1;
 
@@ -59,16 +53,16 @@ public class Duke {
                 String number = splitStr[1];
                 int index = Integer.parseInt(number);
                 try {
-                    list[index-1].MarkAsDone();
+                    //list[index-1].MarkAsDone();
+                    tasks.get(index - 1).MarkAsDone();
                 } catch (NullPointerException e) {
                     System.out.println("Task " + index + " not in the list!");
                     System.out.println("____________________");
                     continue;
                 }
                 System.out.println("Nice! I've marked this task as done:");
-                //list[index - 1].MarkAsDone();
-                System.out.println(list[index - 1].toPrint());
-                Reader.updateTask(index);
+                System.out.println(tasks.get(index-1).toPrint());
+                Reader.updateTask(index); // need to change the tasks in reader
 
             } else if ( splitStr[0].equals("deadline") ) { // for deadline command
                 String[] newSplit = null;
@@ -96,24 +90,25 @@ public class Duke {
                     System.out.println("____________________");
                     continue;
                 }
-                list[counter] = new Deadline(description, newBy);
+//                list[counter] = new Deadline(description, newBy);
+                tasks.add(new Deadline(description, newBy));
                 System.out.println("Got it. I've added this task:");
-                System.out.println(list[counter].toPrint());
-                Reader.addText( "D", description, by, counter, list);
+                System.out.println(tasks.get(counter).toPrint());
+                Reader.addText( "D", description, by, counter, tasks);
                 counter++;
                 System.out.println("Now you have " + counter + " tasks in your list.");
 
-            } else if ( splitStr[0].equals("todo")) { // for-tido command
+            } else if ( splitStr[0].equals("todo")) { // for- command
                 try {
-                    list[counter] = new ToDos(splitStr[1]);
+                    tasks.add(new ToDos(splitStr[1]));
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
                     System.out.println("____________________");
                     continue;
                 }
                 System.out.println("Got it. I've added this task:");
-                System.out.println(list[counter].toPrint());
-                Reader.addText( "T", splitStr[1], "", counter, list);
+                System.out.println(tasks.get(counter).toPrint());
+                Reader.addText( "T", splitStr[1], "", counter, tasks);
                 counter++;
                 System.out.println("Now you have " + counter + " tasks in your list.");
 
@@ -136,9 +131,9 @@ public class Duke {
                     continue;
                 }
                 System.out.println("Got it. I've added this task:");
-                list[counter] = new Event(description, at);
-                System.out.println(list[counter].toPrint());
-                Reader.addText( "E", description, at, counter, list);
+                tasks.add(new Event(description, at));
+                System.out.println(tasks.get(counter).toPrint());
+                Reader.addText( "E", description, at, counter, tasks);
                 counter++;
                 System.out.println("Now you have " + counter + " tasks in your list.");
 
