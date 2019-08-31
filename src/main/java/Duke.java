@@ -133,9 +133,20 @@ public class Duke {
                 System.out.println("Got it. I've added this task:");
                 tasks.add(new Event(description, at));
                 System.out.println(tasks.get(counter).toPrint());
-                Reader.addText( "E", description, at, counter, tasks);
+                Reader.addText("E", description, at, counter, tasks);
                 counter++;
                 System.out.println("Now you have " + counter + " tasks in your list.");
+
+            } else if (splitStr[0].equals("find")) {
+                System.out.println("Here are the matching tasks in your list:");
+                String query = splitStr[1];
+                for (Task task: tasks) {
+                    if (task.getString().contains(query)) {
+                        System.out.println(print + ". " + task.toPrint());
+                    }
+                    print++;
+                }
+                print = 1;
 
             } else {
                 System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
