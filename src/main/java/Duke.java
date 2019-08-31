@@ -28,7 +28,7 @@ public class Duke {
         counter = tasks.size();
 
         while (true) {
-            Scanner myObj = new Scanner(System.in);
+            Scanner myObj = new Scanner(System.in); // scanning
             input = myObj.nextLine();
             String[] splitStr = input.split(" ", 2);
             // take the value from this input always
