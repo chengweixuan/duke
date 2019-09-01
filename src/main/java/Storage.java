@@ -6,9 +6,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 
-public class Reader {
-    public void read(List<Task> tasks, int counter) throws IOException{
-        FileReader fr = new FileReader("/Users/chengweixuanmacbook/Desktop/School/CS2113/saved.txt");
+public class Storage {
+
+    public Storage(TaskList tasks, String filePath) throws IOException{
+        FileReader fr = new FileReader(filePath);
         BufferedReader br = new BufferedReader(fr);
 
         String line = null;
@@ -18,39 +19,42 @@ public class Reader {
             if (spliced[0].equals("T")) {
                 // do basic command
                 String[] furtherSplit = spliced[1].split("/time", 2);
-                tasks.add(new ToDos(furtherSplit[0]));
-                counter++;
+                tasks.tasks.add(new ToDos(furtherSplit[0]));
             } else if (spliced[0].equals("D")) {
                 String[] furtherSplit = spliced[1].split("/time", 2);
                 String input = furtherSplit[0];
                 String time = furtherSplit[1];
-                LocalDateTime newTime = getTIme(time);
-                tasks.add(new Deadline(input, newTime));
-                counter++;
+                LocalDateTime newTime = Parser.getTIme(time);
+                tasks.tasks.add(new Deadline(input, newTime));
                 // do deadline command
 
             } else if (spliced[0].equals("E")) {
                 String[] furtherSplit = spliced[1].split("/time", 2);
                 String input = furtherSplit[0];
                 String time = furtherSplit[1];
-                tasks.add(new Event(input, time));
-                counter++;
+                tasks.tasks.add(new Event(input, time));
 
             } else if (spliced[0].equals("U")) {
                 String number = spliced[1];
                 int index = Integer.parseInt(number);
-                tasks.get(index - 1).MarkAsDone();
+                tasks.tasks.get(index - 1).MarkAsDone();
 
             } else if (spliced[0].equals("C")) {
                 String number = spliced[1];
                 int index = Integer.parseInt(number);
-                tasks.remove(index-1);
+                tasks.tasks.remove(index-1);
             }
 
         }
     }
 
-    public static void addText(String type, String input, String time, int counter, List<Task> list) throws IOException {
+    public static void clearText(String filePath) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        fw.write("");
+        fw.close();
+    }
+
+    public static void addText(String type, String input, String time) throws IOException {
         BufferedWriter fw = new BufferedWriter(
                 new FileWriter("/Users/chengweixuanmacbook/Desktop/School/CS2113/saved.txt", true));
 
@@ -72,8 +76,4 @@ public class Reader {
         fw.close();
     }
 
-    public static LocalDateTime getTIme(String time) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(" d/MM/yyyy HHmm");
-        return LocalDateTime.parse(time, formatter);
-    }
 }
