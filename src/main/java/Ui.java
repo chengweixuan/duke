@@ -51,11 +51,11 @@ public class Ui {
     }
 
     void printNoDescriptionError(String type) {
-        System.out.println("☹ OOPS!!! The description of a " + type + " cannot be empty.");
+        System.out.println("OOPS!!! The description of a " + type + " cannot be empty.");
     }
 
     void noTimeError(String type) {
-        System.out.println("☹ OOPS!!! Please include a " + type + ".");
+        System.out.println("OOPS!!! Please include a " + type + ".");
     }
 
     void addedTask(TaskList tasks, int counter) {
@@ -66,7 +66,7 @@ public class Ui {
     }
 
     void errorInput() {
-        System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+        System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
     }
 
     void goodbye() {

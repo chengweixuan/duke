@@ -45,7 +45,7 @@ public class Parser {
                     ui.addedTask(tasks, counter);
                     Storage.addText("D", description, by);
                 } catch (DateTimeParseException e) {
-                    System.out.println("☹ OOPS!!! Please enter the time as d/MM/yyy HHmm");
+                    System.out.println("OOPS!!! Please enter the time as d/MM/yyy HHmm");
                     ui.printLine();
                 }
 

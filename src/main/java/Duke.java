@@ -1,10 +1,6 @@
-import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.List;
+
 
 public class Duke {
 
@@ -29,13 +25,18 @@ public class Duke {
         ui.printStart(); // prints start message
 
         while (true) {
-            String[] splitStr = Parser.getInput();
+            Scanner myObj = new Scanner(System.in);
+            if (!myObj.hasNextLine()) {
+                break;
+            } else {
+                input = myObj.nextLine();
+            }
+            String[] splitStr = input.split(" ", 2);
 
             if (splitStr[0].equals("bye")) { // break condition
                 Storage.clearText(filePath);
                 break;
             }
-
             ui.printLine(); // start of logic
 
             if (splitStr[0].equals("list")) {
@@ -66,11 +67,9 @@ public class Duke {
             } else {
                 ui.errorInput();
             }
-
             ui.printLine();
         }
         ui.goodbye();
-
     }
 
     public static void main(String[] args) throws IOException {
