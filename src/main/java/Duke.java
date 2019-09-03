@@ -70,6 +70,7 @@ public class Duke {
             ui.printLine();
         }
         ui.goodbye();
+        tasks.tasks.clear();
     }
 
     public static void main(String[] args) throws IOException {
