@@ -23,9 +23,9 @@ public class Duke {
 
         int counter = tasks.tasks.size();
         ui.printStart(); // prints start message
+        Scanner myObj = new Scanner(System.in);
 
         while (true) {
-            Scanner myObj = new Scanner(System.in);
             if (!myObj.hasNextLine()) {
                 break;
             } else {
@@ -70,7 +70,6 @@ public class Duke {
             ui.printLine();
         }
         ui.goodbye();
-        tasks.tasks.clear();
     }
 
     public static void main(String[] args) throws IOException {
