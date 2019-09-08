@@ -2,12 +2,21 @@ import java.io.*;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
 
-
+/**
+ * Loads tasks saved in the data file and saves tasks to the data file during programme runtime
+ * Allows users to save their additions and modifications to the TaskList
+ */
 public class Storage {
 
+    /**
+     * Reads from the data file and inputs all previous commands of the user to the TaskList
+     * Reverts TaskList to the previous saved state
+     *
+     * @param tasks TaskList of the user
+     * @param filePath location of data file
+     * @throws IOException interrupted I/O operation
+     */
     public Storage(TaskList tasks, String filePath) throws IOException{
         FileReader fr = new FileReader(filePath);
         BufferedReader br = new BufferedReader(fr);
@@ -48,12 +57,26 @@ public class Storage {
         }
     }
 
+    /**
+     * Clears all data saved in the data file
+     *
+     * @param filePath location of data file
+     * @throws IOException interrupted I/O operation
+     */
     public static void clearText(String filePath) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         fw.write("");
         fw.close();
     }
 
+    /**
+     * Adds the command of newly added task into data file
+     *
+     * @param type specifies type of task
+     * @param input description of task
+     * @param time time of task (left blank for to do tasks)
+     * @throws IOException interrupted I/O operation
+     */
     public static void addText(String type, String input, String time) throws IOException {
         BufferedWriter fw = new BufferedWriter(
                 new FileWriter("/Users/chengweixuanmacbook/Desktop/School/CS2113/saved.txt", true));
@@ -62,6 +85,12 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Adds the command to set a task to be done into data file
+     *
+     * @param index index of task to be set done in the TaskList
+     * @throws IOException interrupted I/O operation
+     */
     public static void updateTask(int index) throws IOException {
         BufferedWriter fw = new BufferedWriter(
                 new FileWriter("/Users/chengweixuanmacbook/Desktop/School/CS2113/saved.txt", true));
@@ -69,6 +98,12 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Adds the command to delete a task into data file
+     *
+     * @param index index of task to be deleted in the TaskList
+     * @throws IOException interrupted I/O operation
+     */
     public static void deleteTask(int index) throws IOException {
         BufferedWriter fw = new BufferedWriter(
                 new FileWriter("/Users/chengweixuanmacbook/Desktop/School/CS2113/saved.txt", true));

@@ -1,7 +1,13 @@
 import java.io.IOException;
 import java.util.Scanner;
 
-
+/**
+ * The Duke programme allows the user add, edit and track their upcoming tasks
+ *
+ * @author Cheng Weixuan
+ * @version 1.0
+ * @since 07-09-2019
+ */
 public class Duke {
 
     private Storage storage;
@@ -10,15 +16,26 @@ public class Duke {
 
     int print = 1;
     String input = "";
-
     String filePath = "/Users/chengweixuanmacbook/Desktop/School/CS2113/saved.txt";
 
+    /**
+     * Constructs the Duke Object for the programme to run
+     *
+     * @param filePath location of data file
+     * @throws IOException interrupted I/O operation
+     */
     public Duke(String filePath) throws IOException {
         ui = new Ui();
         tasks = new TaskList();
         storage = new Storage(tasks, filePath);
     }
 
+    /**
+     * Scans the user commands and passes the command the Parser package
+     * Contains a loop and exits when the user enters a bye command
+     *
+     * @throws IOException interrupted I/O operation
+     */
     public void run() throws IOException {
 
         int counter = tasks.tasks.size();

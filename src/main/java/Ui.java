@@ -1,3 +1,7 @@
+/**
+ * Handles all interactions with the user
+ * Prints the results of commands from the user
+ */
 public class Ui {
 
     void printLine() {
@@ -15,6 +19,11 @@ public class Ui {
         System.out.println("Hello! I'm Duke\n" + "What can I do for you?");
     }
 
+    /**
+     * Prints all contents of the TaskList
+     *
+     * @param tasks TaskList of tasks
+     */
     void printList(TaskList tasks) {
         int print = 1;
         for (Task task: tasks.tasks) {
@@ -23,6 +32,14 @@ public class Ui {
         }
     }
 
+    /**
+     * Takes in the String as a search word
+     * Searches the user's task list for any tasks containing the search word
+     * Prints all the tasks found along with its index
+     *
+     * @param tasks TaskList of tasks
+     * @param query search word
+     */
     void foundTasks(TaskList tasks, String query) {
         int print = 1;
         System.out.println("Here are the matching tasks in your list:");
